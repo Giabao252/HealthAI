@@ -32,3 +32,19 @@ google-services.json
 
 # Android Profiling
 *.hprof
+
+# Compiled files
+*.dex
+*.class
+
+# Generated directories
+bin/
+gen/
+out/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Additional build artifacts
+*.ap_
