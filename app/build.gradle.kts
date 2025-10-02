@@ -1,5 +1,8 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -14,6 +17,24 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        // Read API keys from local.properties
+        val localProperties = Properties()
+        val localPropertiesFile = rootProject.file("local.properties")
+        if (localPropertiesFile.exists()) {
+            localPropertiesFile.inputStream().use { localProperties.load(it) }
+        }
+
+        // In java files:
+        buildConfigField(
+            "String",
+            "RAPIDAPI_KEY",
+            "\"${localProperties.getProperty("rapidapi.key", "")}\""
+        )
+    }
+
+    buildFeatures {
+        buildConfig = true;
     }
 
     buildTypes {
@@ -40,4 +61,16 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+
+    // Import the BoM for the Firebase platform
+    implementation(platform("com.google.firebase:firebase-bom:34.3.0"))
+
+    // Add the dependency for the Firebase Authentication library
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation("com.google.firebase:firebase-auth")
+
+    implementation("com.squareup.okhttp3:okhttp:4.9.3")
+
+    implementation("androidx.room:room-runtime:2.8.1")
+    annotationProcessor("androidx.room:room-compiler:2.8.1")
 }
