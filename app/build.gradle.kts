@@ -31,10 +31,16 @@ android {
             "RAPIDAPI_KEY",
             "\"${localProperties.getProperty("rapidapi.key", "")}\""
         )
+
+        buildConfigField(
+            "String",
+            "GEMINI_API_KEY",
+            "\"${localProperties.getProperty("GEMINI_API_KEY", "")}\""
+        )
     }
 
     buildFeatures {
-        buildConfig = true;
+        buildConfig = true
     }
 
     buildTypes {
@@ -68,8 +74,14 @@ dependencies {
     // Add the dependency for the Firebase Authentication library
     implementation("com.google.firebase:firebase-auth")
 
-    implementation("com.squareup.okhttp3:okhttp:4.9.3")
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
 
     implementation("androidx.room:room-runtime:2.8.1")
     annotationProcessor("androidx.room:room-compiler:2.8.1")
+    //Google GenAI SDK (Gemini API)
+    implementation("com.google.genai:google-genai:1.0.0")
+
+    implementation("com.google.code.gson:gson:2.10.1")
+
+
 }
