@@ -1,16 +1,48 @@
 package com.project.healthai.data.local;
 
+import android.content.Context;
+
 import androidx.room.Database;
+import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
 import com.project.healthai.data.helpers.Converters;
+import com.project.healthai.data.local.dao.ExerciseDao;
+import com.project.healthai.data.local.dao.FoodLogDao;
+import com.project.healthai.data.local.dao.UserDao;
 import com.project.healthai.data.local.entities.Exercise;
 import com.project.healthai.data.local.entities.FoodLog;
 import com.project.healthai.data.local.entities.User;
 
-@Database(entities = {User.class, FoodLog.class, Exercise.class}, version = 1)
+@Database(
+        entities = {User.class, FoodLog.class, Exercise.class},
+        version = 1
+)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
-    //DAOs go here
+
+    // DAOs
+    public abstract UserDao userDao();
+    public abstract FoodLogDao foodLogDao();
+    public abstract ExerciseDao exerciseDao();
+
+    // The INSTANCE is created only once
+    private static volatile AppDatabase DB_INSTANCE;
+
+    public static AppDatabase getInstance(Context context) {
+        if (DB_INSTANCE == null) {
+            synchronized (AppDatabase.class) {
+                if (DB_INSTANCE == null) {
+                    DB_INSTANCE = Room.databaseBuilder(
+                            context.getApplicationContext(),
+                            AppDatabase.class,
+                            "health_ai"
+                    ).build();
+                }
+            }
+        }
+        return DB_INSTANCE;
+    }
+
 }
