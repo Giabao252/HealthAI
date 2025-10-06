@@ -1,6 +1,7 @@
 package com.project.healthai.data.local.dao;
 
 import androidx.lifecycle.LiveData;
+import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -9,6 +10,7 @@ import com.project.healthai.data.local.entities.Exercise;
 
 import java.util.List;
 
+@Dao
 public interface ExerciseDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(List<Exercise> exercises);

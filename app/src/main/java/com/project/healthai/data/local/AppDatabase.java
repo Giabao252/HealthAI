@@ -17,7 +17,8 @@ import com.project.healthai.data.local.entities.User;
 
 @Database(
         entities = {User.class, FoodLog.class, Exercise.class},
-        version = 1
+        version = 1,
+        exportSchema = false
 )
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
