@@ -9,14 +9,13 @@ import androidx.room.TypeConverters;
 
 import com.project.healthai.data.helpers.Converters;
 import com.project.healthai.data.local.dao.ExerciseDao;
-import com.project.healthai.data.local.dao.FoodLogDao;
 import com.project.healthai.data.local.dao.UserDao;
 import com.project.healthai.data.local.entities.Exercise;
 import com.project.healthai.data.local.entities.FoodLog;
 import com.project.healthai.data.local.entities.User;
 
 @Database(
-        entities = {User.class, FoodLog.class, Exercise.class},
+        entities = {User.class, Exercise.class},
         version = 1,
         exportSchema = false
 )
@@ -25,7 +24,6 @@ public abstract class AppDatabase extends RoomDatabase {
 
     // DAOs
     public abstract UserDao userDao();
-    public abstract FoodLogDao foodLogDao();
     public abstract ExerciseDao exerciseDao();
 
     // The INSTANCE is created only once

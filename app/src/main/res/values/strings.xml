@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">HealthAI</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="username">Username</string>
+    <string name="signup_button">Sign up</string>
+    <string name="login_button">Login</string>
+    <string name="signup_redirect">Create a new account</string>
+    <string name="login_redirect">Already have an account? Click here to log in</string>
 </resources>
