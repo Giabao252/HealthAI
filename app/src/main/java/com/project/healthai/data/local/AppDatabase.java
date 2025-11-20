@@ -11,7 +11,6 @@ import com.project.healthai.data.helpers.Converters;
 import com.project.healthai.data.local.dao.ExerciseDao;
 import com.project.healthai.data.local.dao.UserDao;
 import com.project.healthai.data.local.entities.Exercise;
-import com.project.healthai.data.local.entities.FoodLog;
 import com.project.healthai.data.local.entities.User;
 
 @Database(

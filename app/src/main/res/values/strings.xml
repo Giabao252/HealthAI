@@ -3,8 +3,45 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="username">Username</string>
+    <string name="enter_email">Enter your email</string>
+    <string name="enter_password">Enter your password</string>
+    <string name="enter_username">Enter your username</string>
     <string name="signup_button">Sign up</string>
     <string name="login_button">Login</string>
+    <string name="get_started">Get started</string>
     <string name="signup_redirect">Create a new account</string>
     <string name="login_redirect">Already have an account? Click here to log in</string>
+    <string name="welcome">Welcome to Health AI</string>
+    <string name="welcome_sub">Your personal health assistant</string>
+    <string name="welcome_back">Welcome back, </string>
+    <string name="age">Age: </string>
+    <string name="height">Height: </string>
+    <string name="gender">Gender: </string>
+    <string name="fitness_goal">Fitness Goal: </string>
+    <string name="current_weight">Current Weight: </string>
+    <string name="target_weight">Target Weight: </string>
+    <string name="sign_out">Log out</string>
+
+    <string name="edit_profile">Edit Profile</string>
+    <string name="height_feet">Height (feet)</string>
+    <string name="current_weight_lbs">Current Weight (lbs)</string>
+    <string name="target_weight_lbs">Target Weight (lbs)</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="notes">Notes</string>
+
+    <!-- Hints -->
+    <string name="hint_age">Enter your age</string>
+    <string name="hint_height">e.g., 5.8</string>
+    <string name="hint_current_weight">Enter current weight</string>
+    <string name="hint_target_weight">Enter target weight</string>
+    <string name="hint_notes">Add any notes about your fitness journey...</string>
+    <string name="hint_gender">Enter your gender</string>
+    <string name="hint_goal">Enter your fitness goal</string>
+
+    <string-array name="fitness_goal_options">
+        <item>Select Goal</item>
+        <item>Lose Weight</item>
+        <item>Gain Muscle</item>
+        <item>Maintain</item>
+    </string-array>
 </resources>

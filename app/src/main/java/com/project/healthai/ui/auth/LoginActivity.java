@@ -13,25 +13,34 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.project.healthai.MainActivity;
+import com.project.healthai.data.local.entities.User;
+import com.project.healthai.ui.MainActivity;
 import com.project.healthai.R;
 import com.project.healthai.data.local.AppDatabase;
 import com.project.healthai.ui.home.HomeActivity;
+import com.project.healthai.utils.AuthContext;
+import com.project.healthai.utils.RedirectionHelpers;
 
 public class LoginActivity extends AppCompatActivity {
+    private AuthContext authContext;
+
     private FirebaseAuth mAuth;
     private EditText inputEmail, inputPassword;
     private AppDatabase db;
     private static final String TAG = "LoginActivity";
+    private RedirectionHelpers redirectionHelper = new RedirectionHelpers();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        mAuth = FirebaseAuth.getInstance();
+        authContext = AuthContext.getInstance(this);
+        db = AppDatabase.getInstance(this);
         inputEmail = findViewById(R.id.emailInputField);
         inputPassword = findViewById(R.id.passwordInputField);
 
@@ -46,15 +55,9 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(signupIntent);
             }
         });
-    }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        //check if user is signed in and update UI accordingly
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null) {
-            navigateToMain();
+        if (authContext.isUserLoggedIn()){
+            redirectionHelper.redirect(this, HomeActivity.class);
         }
     }
 
@@ -62,35 +65,41 @@ public class LoginActivity extends AppCompatActivity {
         String email = inputEmail.getText().toString();
         String password = inputPassword.getText().toString();
 
+        // Validation
+        if (email.isEmpty() || password.isEmpty()) {
+            Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            navigateToHome();
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                        }
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        Log.d(TAG, "signInWithEmail:success");
+                        String userId = mAuth.getCurrentUser().getUid();
+
+                        new Thread(() -> {
+                            User user = db.userDao().getUserById(userId);
+
+                            runOnUiThread(() -> {
+                                if (user != null) {
+                                    // User exists in database - proceed to home
+                                    Toast.makeText(this, "Login successful!", Toast.LENGTH_SHORT).show();
+                                    authContext.refreshUserData();
+
+                                    redirectionHelper.redirect(LoginActivity.this, HomeActivity.class);
+                                    finish();
+                                }
+                            });
+                        }).start();
+
+                    } else {
+                        // If sign in fails, display a message to the user
+                        Log.w(TAG, "signInWithEmail:failure", task.getException());
+                        String errorMessage = task.getException() != null ?
+                                task.getException().getMessage() : "Authentication failed";
+                        Toast.makeText(LoginActivity.this, "Error: " + errorMessage, Toast.LENGTH_SHORT).show();
                     }
                 });
-
     }
 
-
-    private void navigateToHome() {
-        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-        startActivity(intent);
-        finish();
-    }
-    private void navigateToMain() {
-        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-        startActivity(intent);
-        finish();
-    }
 }

@@ -3,53 +3,52 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="50dp"
-    >
+    android:padding="50dp">
 
     <TextView
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:text="@string/username"
-        android:layout_marginBottom="10dp"
-        />
+        android:layout_marginBottom="10dp"/>
 
     <EditText
         android:id="@+id/usernameInputField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginBottom="50dp"
-        />
+        android:inputType="textPersonName"
+        android:hint="@string/enter_username"
+        android:padding="12dp"
+        android:layout_marginBottom="50dp"/>
 
     <TextView
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:text="@string/email"
-        android:layout_marginBottom="10dp"
-        />
+        android:layout_marginBottom="10dp"/>
 
     <EditText
         android:id="@+id/emailInputField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginBottom="50dp"
-        />
+        android:inputType="textEmailAddress"
+        android:hint="@string/enter_email"
+        android:padding="12dp"
+        android:layout_marginBottom="50dp"/>
 
     <TextView
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:text="@string/password"
-        android:layout_marginBottom="10dp"
-        />
+        android:layout_marginBottom="10dp"/>
 
     <EditText
         android:id="@+id/passwordInputField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginBottom="50dp"
-        />
+        android:inputType="textPassword"
+        android:hint="@string/enter_password"
+        android:padding="12dp"
+        android:layout_marginBottom="50dp"/>
 
     <Button
         android:id="@+id/signupButton"
@@ -57,8 +56,7 @@
         android:layout_height="wrap_content"
         android:text="@string/signup_button"
         android:textColor="@color/black"
-        android:backgroundTint="@color/yellow"
-        />
+        android:backgroundTint="@color/yellow"/>
 
     <TextView
         android:id="@+id/loginRedirect"
@@ -68,7 +66,6 @@
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:clickable="true"
-        android:focusable="true"
-        />
+        android:focusable="true"/>
 
 </LinearLayout>

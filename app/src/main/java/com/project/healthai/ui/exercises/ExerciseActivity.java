@@ -1,4 +1,6 @@
 package com.project.healthai.ui.exercises;
 
-public class ExerciseActivity {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class ExerciseActivity extends AppCompatActivity {
 }

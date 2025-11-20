@@ -1,4 +1,6 @@
 package com.project.healthai.ui.nutrition;
 
-public class NutritionActivity {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class NutritionActivity extends AppCompatActivity {
 }

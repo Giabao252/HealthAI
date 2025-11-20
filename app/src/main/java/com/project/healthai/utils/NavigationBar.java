@@ -5,13 +5,15 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 
 import com.project.healthai.ui.exercises.ExerciseActivity;
 import com.project.healthai.ui.home.HomeActivity;
 import com.project.healthai.ui.nutrition.NutritionActivity;
 
-public class NavigationDropDown {
+public class NavigationBar {
+    private AuthContext currentUser;
 
     public static void setupNavigationSpinner(Activity activity, Spinner spinner, String currentActivity) {
         String[] navItems = {"Home", "Nutrition", "Exercise"};
@@ -65,5 +67,12 @@ public class NavigationDropDown {
             case "Exercise": return 2;
             default: return 0;
         }
+    }
+
+    public static void setupLogoutButton(Activity activity, Button logoutButton) {
+        logoutButton.setOnClickListener(v -> {
+            AuthContext.getInstance(activity).signOut(activity);
+            activity.finish(); // Close current activity after logout
+        });
     }
 }
