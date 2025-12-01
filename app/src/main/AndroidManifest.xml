@@ -24,6 +24,7 @@
         <activity android:name=".ui.auth.LoginActivity" />
         <activity android:name=".ui.home.HomeActivity" />
         <activity android:name=".ui.exercises.ExerciseActivity" />
+        <activity android:name=".ui.exercises.ExerciseDetailActivity" />
         <activity android:name=".ui.nutrition.NutritionActivity" />
     </application>
 

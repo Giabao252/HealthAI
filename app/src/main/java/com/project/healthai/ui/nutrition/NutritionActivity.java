@@ -62,6 +62,7 @@ public class NutritionActivity extends AppCompatActivity {
     // User data
     private String currentWeight = "";
     private String targetWeight = "";
+    private String fitnessGoal = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +74,9 @@ public class NutritionActivity extends AppCompatActivity {
         authContext.getCurrentUserAsync(user -> {
             if (user != null) {
                 currentUser = user;
+                currentWeight = String.valueOf(currentUser.getCurrentWeight());
+                targetWeight = String.valueOf(currentUser.getTargetWeight());
+                fitnessGoal = currentUser.getFitnessGoal();
             }
         });
 
@@ -150,7 +154,7 @@ public class NutritionActivity extends AppCompatActivity {
         setLoadingState(true);
 
         // Call repository
-        repository.analyzeMeal(targetWeight, currentWeight, foodsConsumed, mealType,
+        repository.analyzeMeal(targetWeight, currentWeight, foodsConsumed, fitnessGoal, mealType,
                 new NutritionRepository.MealAnalysisCallback() {
                     @Override
                     public void onSuccess(JSONObject response) {

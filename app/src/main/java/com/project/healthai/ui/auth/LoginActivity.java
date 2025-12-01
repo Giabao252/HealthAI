@@ -18,6 +18,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.project.healthai.data.local.entities.User;
+import com.project.healthai.data.repository.ExerciseRepository;
 import com.project.healthai.ui.MainActivity;
 import com.project.healthai.R;
 import com.project.healthai.data.local.AppDatabase;
@@ -85,6 +86,20 @@ public class LoginActivity extends AppCompatActivity {
                                     // User exists in database - proceed to home
                                     Toast.makeText(this, "Login successful!", Toast.LENGTH_SHORT).show();
                                     authContext.refreshUserData();
+
+                                    ExerciseRepository exerciseRepository = new ExerciseRepository(this);
+                                    exerciseRepository.fetchAndCacheExercises(true, new ExerciseRepository.FetchCallback() {
+                                        @Override
+                                        public void onSuccess(String message) {
+                                            Log.d(TAG, "Login: " + message);
+                                        }
+
+                                        @Override
+                                        public void onError(String error) {
+                                            Log.e(TAG, "Login: Failed to cache exercises - " + error);
+                                            // Don't block login on exercise fetch failure
+                                        }
+                                    });
 
                                     redirectionHelper.redirect(LoginActivity.this, HomeActivity.class);
                                     finish();

@@ -34,9 +34,9 @@ public class GeminiApiService {
      * @param mealType: User's meal type
      * @return AI-generated plan as JSON string
      */
-    public String generateOutput(String systemPrompt, String targetWeight, String currentWeight, String foodsConsumed, String mealType) throws Exception {
+    public String generateOutput(String systemPrompt, String targetWeight, String currentWeight, String foodsConsumed, String fitnessGoal, String mealType) throws Exception {
         // Build request body with proper structure
-        JSONObject requestBody = buildRequestBody(systemPrompt, targetWeight, currentWeight, foodsConsumed, mealType);
+        JSONObject requestBody = buildRequestBody(systemPrompt, targetWeight, currentWeight, foodsConsumed, fitnessGoal, mealType);
 
         // Construct model-specific URL
         String apiUrl = BASE_URL + "gemini-2.5-pro" + ":generateContent?key=" + apiKey;
@@ -99,7 +99,7 @@ public class GeminiApiService {
      * Uses system_instruction field (recommended by Gemini)
      * instead of mixing system and user messages in parts
      */
-    private JSONObject buildRequestBody(String systemPrompt, String targetWeight, String currentWeight, String foodsConsumed, String mealType) throws Exception {
+    private JSONObject buildRequestBody(String systemPrompt, String targetWeight, String currentWeight, String foodsConsumed, String fitnessGoal, String mealType) throws Exception {
         JSONObject requestBody = new JSONObject();
 
         // 1. Create system_instruction object (NEW STRUCTURE)
@@ -125,11 +125,13 @@ public class GeminiApiService {
                         "Target Weight: %s\n" +
                         "Current Weight: %s\n" +
                         "Foods Consumed this meal: %s\n" +
+                        "Current user's fitness goal: %s\n" +
                         "Type of the meal: %s\n\n" +
                         "Please generate a feedback regarding the meal user just consumed as well as recommend a better meal plan for the user.",
                 targetWeight,
                 currentWeight,
                 foodsConsumed,
+                fitnessGoal,
                 mealType
         );
         userTextPart.put("text", userMessage);

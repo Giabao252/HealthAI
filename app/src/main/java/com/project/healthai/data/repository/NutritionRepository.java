@@ -34,7 +34,7 @@ public class NutritionRepository {
     }
 
     public void analyzeMeal(String targetWeight, String currentWeight,
-                            String foodsConsumed, String mealType,
+                            String foodsConsumed, String fitnessGoal, String mealType,
                             MealAnalysisCallback callback) {
         executor.execute(() -> {
             try {
@@ -47,6 +47,7 @@ public class NutritionRepository {
                         targetWeight,
                         currentWeight,
                         foodsConsumed,
+                        fitnessGoal,
                         mealType
                 );
 
